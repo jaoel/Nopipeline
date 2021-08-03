@@ -59,7 +59,7 @@ namespace Nopipeline
 			Console.WriteLine();
 
 			// Check all rules in content object and update timestamp of files if required.
-			content.CheckIntegrity(snapshot, rootPath);
+			content.CheckIntegrity(snapshot);
 			snapshot.WriteSnapshot();
 
 			// Saving MGCB file.

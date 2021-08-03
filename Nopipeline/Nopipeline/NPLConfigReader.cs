@@ -17,7 +17,7 @@ namespace Nopipeline
 		public void Read(Content content, string configPath)
 		{
 			var config = JObject.Parse(File.ReadAllText(configPath, Encoding.UTF8));
-			var rootDir = Path.GetDirectoryName(configPath) + "/";
+			var rootDir = Content.Root;
 
 			var contentJson = (JObject)config["content"];
 

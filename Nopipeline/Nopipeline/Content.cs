@@ -100,7 +100,7 @@ namespace Nopipeline
 		/// <summary>
 		/// Checks if content files exist and checks watched files.
 		/// </summary>
-		public void CheckIntegrity(WatchSnapshot snapshot, string rootPath)
+		public void CheckIntegrity(WatchSnapshot snapshot)
 		{
 			Console.WriteLine("Checking integrity of the final config.");
 			Console.WriteLine();
@@ -109,7 +109,7 @@ namespace Nopipeline
 
 			foreach (Item item in ContentItems.Values)
 			{
-				var fullItemPath = Path.Combine(rootPath, item.Path);
+				var fullItemPath = Path.Combine(Root, item.Path);
 				Console.WriteLine("Checking " + fullItemPath);
 
 				if (File.Exists(fullItemPath))
@@ -123,7 +123,7 @@ namespace Nopipeline
 					if (!snapshot.CheckMatch(item))
 					{
 						Console.WriteLine("Watched filed were modified! Updating: " + item.Path);
-						File.SetLastWriteTime(Path.Combine(rootPath, item.Path), DateTime.Now);
+						File.SetLastWriteTime(Path.Combine(Root, item.Path), DateTime.Now);
 					}
 				}
 
@@ -135,8 +135,8 @@ namespace Nopipeline
 			var checkedReferences = new HashSet<string>();
 			foreach (var reference in _references)
 			{
-				Console.WriteLine("Checking reference: " + Path.Combine(rootPath, reference));
-				if (File.Exists(Path.Combine(rootPath, reference)))
+				Console.WriteLine("Checking reference: " + Path.Combine(Root, reference));
+				if (File.Exists(Path.Combine(Root, reference)))
 				{
 					checkedReferences.Add(reference);
 				}
